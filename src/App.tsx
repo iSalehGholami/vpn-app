@@ -6,6 +6,7 @@ function App() {
   const [showBack, setshowBack] = useState(false);
   const toggleBack = () => {
     setshowBack(!showBack);
+    alert("Backbutton is now " + showBack);
   };
 
   return (
