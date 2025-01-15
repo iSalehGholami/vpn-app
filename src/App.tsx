@@ -1,14 +1,9 @@
 import { useState } from "react";
 import "./App.css";
-import {
-  BackButton,
-  useShowPopup,
-  useWebApp,
-} from "@vkruglikov/react-telegram-web-app";
+import { BackButton, useShowPopup } from "@vkruglikov/react-telegram-web-app";
 function App() {
   const popup = useShowPopup();
   const [showBack, setshowBack] = useState(false);
-  const webapp = useWebApp();
   const toggleBack = () => {
     setshowBack(!showBack);
   };
