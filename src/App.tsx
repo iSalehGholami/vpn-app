@@ -16,8 +16,7 @@ const App: React.FC = () => {
   return (
     <div>
       <AppContainer>
-        {/* {isRunningWithTelegramBrowser ? <MiniApp /> : <Notice />} */}
-        <MiniApp />
+        {isRunningWithTelegramBrowser ? <MiniApp /> : <Notice />}
       </AppContainer>
     </div>
   );
