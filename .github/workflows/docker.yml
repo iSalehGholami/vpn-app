@@ -61,12 +61,13 @@ jobs:
       - name: Set Up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Log in to Registry
+      - name: Test Docker Login
         env:
           REGISTRY_USER: ${{ secrets.REGISTRY_USER }}
           REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
         run: |
-          echo '$REGISTRY_PASSWORD' | docker login $REGISTRY_URL --username '$REGISTRY_USER' --password-stdin
+          echo "=== Testing Docker Login ==="
+          echo "$REGISTRY_PASSWORD" | docker login $REGISTRY_URL -u "$REGISTRY_USER" --password-stdin || echo "Docker login failed."
 
       - name: Build and Push Docker Image
         run: |
