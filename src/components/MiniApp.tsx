@@ -22,7 +22,7 @@ const MiniApp: React.FC = () => {
 
   return (
     <div className="min-h-screen text-gray-800 dark:text-gray-200">
-      <div className="p-4 mb-16 overflow-scroll">{renderPage()}</div>
+      <div className="p-4 mb-16 overflow-auto">{renderPage()}</div>
       <BottomNavBar currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );

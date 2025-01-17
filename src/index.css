@@ -15,6 +15,7 @@ html {
   background-size: cover;
   background-position: center;
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 body,
