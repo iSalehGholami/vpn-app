@@ -1,34 +1,31 @@
-import { useState } from "react";
-import "./App.css";
-import { BackButton, useShowPopup } from "@vkruglikov/react-telegram-web-app";
-function App() {
-  const popup = useShowPopup();
-  const [showBack, setshowBack] = useState(false);
-  const toggleBack = () => {
-    setshowBack(!showBack);
-    alert("Backbutton is now " + showBack);
-  };
+import React, { useEffect, useState } from "react";
+import AppContainer from "./components/AppContainer";
+import MiniApp from "./components/MiniApp";
+import Notice from "./components/Notice";
+import WebApp from "@twa-dev/sdk";
+const App: React.FC = () => {
+  const [isRunningWithTelegramBrowser, setIsRunningWithTelegramBrowser] =
+    useState(false);
+  useEffect(() => {
+    // Check if WebApp SDK is available and only use it on the client side
+    if (typeof window !== "undefined" && WebApp.initDataUnsafe.user) {
+      setIsRunningWithTelegramBrowser(true);
+    }
+  }, []);
 
   return (
     <div>
-      <h3>Welcome to my App</h3>
-      <div onClick={toggleBack} style={{ color: showBack ? "green" : "red" }}>
-        ClickMe!
-      </div>
-      <div>
-        {showBack ?? (
-          <BackButton
-            onClick={() => {
-              popup({
-                message: "Salam",
-                title: "popup",
-              });
-            }}
-          />
-        )}
-      </div>
+      {isRunningWithTelegramBrowser ? (
+        <AppContainer>
+          <MiniApp />
+        </AppContainer>
+      ) : (
+        <AppContainer>
+          <Notice />
+        </AppContainer>
+      )}
     </div>
   );
-}
+};
 
 export default App;
