@@ -8,22 +8,16 @@ const App: React.FC = () => {
     useState(false);
   useEffect(() => {
     // Check if WebApp SDK is available and only use it on the client side
-    if (typeof window !== "undefined" && WebApp.initDataUnsafe.user) {
+    if (WebApp.initDataUnsafe.user) {
       setIsRunningWithTelegramBrowser(true);
     }
   }, []);
 
   return (
     <div>
-      {isRunningWithTelegramBrowser ? (
-        <AppContainer>
-          <MiniApp />
-        </AppContainer>
-      ) : (
-        <AppContainer>
-          <Notice />
-        </AppContainer>
-      )}
+      <AppContainer>
+        {isRunningWithTelegramBrowser ? <MiniApp /> : <Notice />}
+      </AppContainer>
     </div>
   );
 };

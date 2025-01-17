@@ -61,9 +61,7 @@ const HomePage: React.FC = () => {
         <ServiceDetailModal
           service={cards[selectedService]}
           visible={selectedService != null}
-          onClose={() => {
-            setSelectedService(null);
-          }}
+          onClose={() => setSelectedService(null)}
         />
       )}
     </div>
