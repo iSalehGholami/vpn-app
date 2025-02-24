@@ -13,7 +13,7 @@ const ServicesPage: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-lg font-bold mb-4">خدمات خریداری‌شده</h2>
+      <h2 className="text-lg font-bold mb-4">سرویس های من</h2>
       <ul className="space-y-4">
         {services.map((service) => (
           <li

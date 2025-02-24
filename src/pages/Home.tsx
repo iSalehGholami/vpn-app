@@ -5,6 +5,7 @@ import FilterBox from "../components/FilterBox";
 import CardList from "../components/CardList";
 import ServiceDetailModal from "../components/ServiceDetailsModal";
 import { ServiceProps } from "../types/type";
+import BalanceDepositModal from "../components/DepositBalance";
 
 const HomePage: React.FC = () => {
   const [balance, setBalance] = useState<number>(200000);
@@ -12,6 +13,7 @@ const HomePage: React.FC = () => {
   const [selectedDuration, setSelectedDuration] = useState<string>("یک ماهه");
   const [selectedTraffic, setSelectedTraffic] = useState<string>("حجمی");
   const [selectedLocation, setSelectedLocation] = useState<string>("");
+  const [isBalanceMode, setIsBalanceMode] = useState(false);
 
   const cards: ServiceProps[] = [
     { traffic: "۳۰ گیگابایت", duration: "یک ماهه", price: 88000 },
@@ -28,10 +30,20 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
+      {isBalanceMode && (
+        <BalanceDepositModal
+          visible={isBalanceMode}
+          onClose={() => setIsBalanceMode(false)}
+        />
+      )}
+
       <BalanceBox
         balance={balance}
         currency="تومان"
-        onAddBalance={() => setBalance(balance + 100000)}
+        onAddBalance={() => {
+          setIsBalanceMode(true);
+          setBalance(balance + 100000);
+        }}
       />
       <TierBox tier={tier} />
       <FilterBox

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import AppContainer from "./components/AppContainer";
 import MiniApp from "./components/MiniApp";
-import Notice from "./components/Notice";
 import WebApp from "@twa-dev/sdk";
 const App: React.FC = () => {
   const [isRunningWithTelegramBrowser, setIsRunningWithTelegramBrowser] =
@@ -16,7 +16,8 @@ const App: React.FC = () => {
   return (
     <div>
       <AppContainer>
-        {isRunningWithTelegramBrowser ? <MiniApp /> : <Notice />}
+        {/* {isRunningWithTelegramBrowser ? <MiniApp /> : <Notice />} */}
+        <MiniApp />
       </AppContainer>
     </div>
   );

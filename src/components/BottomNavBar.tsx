@@ -54,7 +54,9 @@ const BottomNavBar: React.FC<BottomNavBarProps> = ({
           }`}
         >
           <ShopOutlined className="text-xl" />
-          {currentPage === "services" && <span className="text-xs">خدمات</span>}
+          {currentPage === "services" && (
+            <span className="text-xs">سرویس‌ها</span>
+          )}
         </button>
       </div>
     </div>
