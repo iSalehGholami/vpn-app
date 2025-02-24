@@ -28,7 +28,7 @@ const currencies: Currency[] = [
   { code: "IRR", name: "ایران ریال" },
 ];
 
-// تنظیمات اطلاعات پرداخت برای هر ارز. می‌توانید به سادگی این شیء را گسترش دهید
+// تنظیمات اطلاعات پرداخت برای هر ارز
 const paymentDetails: Record<string, PaymentMethod> = {
   BTC: {
     type: "crypto",
@@ -46,7 +46,7 @@ const paymentDetails: Record<string, PaymentMethod> = {
     qrCodeValue: "usdt-wallet-address",
   },
   IRR: { type: "debit", cardInfo: "شماره کارت: 1234-5678-9012-3456" },
-  // برای روش‌های خارجی می‌توانید اینجا externalLink اضافه کنید
+  // برای روش‌های خارجی نیز می‌توانید externalLink اضافه کنید
 };
 
 const BalanceDepositModal: React.FC<BalanceDepositModalProps> = ({
@@ -57,10 +57,26 @@ const BalanceDepositModal: React.FC<BalanceDepositModalProps> = ({
   const [selectedCurrency, setSelectedCurrency] = useState("");
   const [amount, setAmount] = useState("");
   const [step, setStep] = useState(1);
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
 
+  // تعیین ارتفاع اولیه (هنگام mount) جهت تشخیص تغییر ارتفاع (کیبورد)
   useEffect(() => {
     if (visible) setShowModal(true);
   }, [visible]);
+
+  useEffect(() => {
+    const baseHeight = window.innerHeight;
+    const handleResize = () => {
+      // اگر ارتفاع جدید کمتر از ارتفاع اولیه به اندازه 100px بود، فرض کنید کیبورد باز است
+      if (window.innerHeight < baseHeight - 100) {
+        setKeyboardOpen(true);
+      } else {
+        setKeyboardOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleClose = () => {
     setShowModal(false);
@@ -126,7 +142,7 @@ const BalanceDepositModal: React.FC<BalanceDepositModalProps> = ({
     <AnimatePresence>
       {showModal && (
         <>
-          {/* پس‌زمینه مدال */}
+          {/* پس‌زمینه */}
           <motion.div
             className="fixed inset-0 bg-black/50 z-40"
             initial={{ opacity: 0 }}
@@ -139,8 +155,9 @@ const BalanceDepositModal: React.FC<BalanceDepositModalProps> = ({
           {/* محتوای مدال */}
           <motion.div
             className="fixed bottom-0 left-0 right-0 z-50 w-full bg-white rounded-t-3xl p-6 shadow-lg"
+            // ورود از پایین. در حالت عادی y=0، ولی اگر کیبورد باز است، به بالا منتقل می‌شود.
             initial={{ y: "100%" }}
-            animate={{ y: 0 }}
+            animate={{ y: keyboardOpen ? -100 : 0 }}
             exit={{ y: "100%" }}
             transition={{ duration: 0.3 }}
             onClick={(e) => e.stopPropagation()}
