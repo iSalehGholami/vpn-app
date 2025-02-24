@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import AppContainer from "./components/AppContainer";
 import MiniApp from "./components/MiniApp";
 import WebApp from "@twa-dev/sdk";
 const App: React.FC = () => {
-  const [isRunningWithTelegramBrowser, setIsRunningWithTelegramBrowser] =
-    useState(false);
+  const [, setIsRunningWithTelegramBrowser] = useState(false);
   useEffect(() => {
     // Check if WebApp SDK is available and only use it on the client side
     if (WebApp.initDataUnsafe.user) {
